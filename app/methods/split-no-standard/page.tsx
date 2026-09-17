@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"Methods — Split, No Standard"}
       description={"A page that will split what should be one event into several inconsistent method calls."}
+      section={"methods"}
+      current={"/methods/split-no-standard"}
     />
   );
 }

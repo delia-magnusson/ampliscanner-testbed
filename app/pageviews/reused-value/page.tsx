@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"Page Views — Reused Value"}
       description={"A page that will fire a page view event that reuses a stale or incorrect value."}
+      section={"pageviews"}
+      current={"/pageviews/reused-value"}
     />
   );
 }

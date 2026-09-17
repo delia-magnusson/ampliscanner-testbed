@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"Methods — Duplicate (High)"}
       description={"A page that will fire duplicate tracking calls across many of its interactions."}
+      section={"methods"}
+      current={"/methods/duplicate-high"}
     />
   );
 }

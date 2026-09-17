@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"No Tracking — Page 2"}
       description={"A second untracked page in this section, used alongside the first to check detection of multiple untracked pages in a row."}
+      section={"no-tracking"}
+      current={"/no-tracking/page-2"}
     />
   );
 }

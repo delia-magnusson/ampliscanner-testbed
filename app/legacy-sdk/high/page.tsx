@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"Legacy SDK — High"}
       description={"A page that will rely heavily on the deprecated legacy SDK."}
+      section={"legacy-sdk"}
+      current={"/legacy-sdk/high"}
     />
   );
 }

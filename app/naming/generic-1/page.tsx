@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"Naming — Generic (1)"}
       description={"A page that will fire an overly generic event name, such as \"click\"."}
+      section={"naming"}
+      current={"/naming/generic-1"}
     />
   );
 }

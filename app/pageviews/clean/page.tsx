@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"Page Views — Clean"}
       description={"A baseline page that will fire exactly one page view event."}
+      section={"pageviews"}
+      current={"/pageviews/clean"}
     />
   );
 }

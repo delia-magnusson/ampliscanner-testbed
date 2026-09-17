@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"Legacy SDK — Current"}
       description={"A page that will use only the current, supported Amplitude SDK."}
+      section={"legacy-sdk"}
+      current={"/legacy-sdk/current"}
     />
   );
 }

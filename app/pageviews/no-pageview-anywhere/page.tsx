@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"Page Views — None Anywhere"}
       description={"A page that will never fire a page view event at all."}
+      section={"pageviews"}
+      current={"/pageviews/no-pageview-anywhere"}
     />
   );
 }

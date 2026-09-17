@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"Naming — Clean"}
       description={"A baseline page whose future tracking events will use consistent, well-formed naming."}
+      section={"naming"}
+      current={"/naming/clean"}
     />
   );
 }

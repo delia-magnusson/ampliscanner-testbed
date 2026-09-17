@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"Naming — Casing (High)"}
       description={"A page whose future tracking events will use heavily inconsistent event-name casing across variants."}
+      section={"naming"}
+      current={"/naming/casing-high"}
     />
   );
 }

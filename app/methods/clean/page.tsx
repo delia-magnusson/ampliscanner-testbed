@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"Methods — Clean"}
       description={"A baseline page that will fire a single well-formed tracking call per user action."}
+      section={"methods"}
+      current={"/methods/clean"}
     />
   );
 }

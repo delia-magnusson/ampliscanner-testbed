@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { createInstance } from "@amplitude/analytics-browser";
+import SectionNav from "../../_components/SectionNav";
 
 const API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
 
@@ -37,21 +38,24 @@ export default function NoAutocapturePage() {
   }
 
   return (
-    <main className="page">
-      <h1>No Tracking — No Autocapture</h1>
-      <p>
-        This page fires real custom <code>track()</code> calls (a page-viewed event on load, plus
-        two interaction events below) but explicitly disables Amplitude&apos;s autocapture,
-        exercising the scanner&apos;s milder NO_AUTOCAPTURE finding rather than AUTOCAPTURE_ONLY.
-      </p>
-      <div className="button-row">
-        <button type="button" onClick={handleAddToCart}>
-          Add to cart
-        </button>
-        <button type="button" onClick={handleNewsletterSignup}>
-          Sign up for newsletter
-        </button>
-      </div>
-    </main>
+    <>
+      <SectionNav section="no-tracking" current="/no-tracking/no-autocapture" />
+      <main className="page">
+        <h1>No Tracking — No Autocapture</h1>
+        <p>
+          This page fires real custom <code>track()</code> calls (a page-viewed event on load,
+          plus two interaction events below) but explicitly disables Amplitude&apos;s autocapture,
+          exercising the scanner&apos;s milder NO_AUTOCAPTURE finding rather than AUTOCAPTURE_ONLY.
+        </p>
+        <div className="button-row">
+          <button type="button" onClick={handleAddToCart}>
+            Add to cart
+          </button>
+          <button type="button" onClick={handleNewsletterSignup}>
+            Sign up for newsletter
+          </button>
+        </div>
+      </main>
+    </>
   );
 }

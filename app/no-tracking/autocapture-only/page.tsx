@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { createInstance } from "@amplitude/analytics-browser";
+import SectionNav from "../../_components/SectionNav";
 
 const API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
 
@@ -27,13 +28,16 @@ export default function AutocaptureOnlyPage() {
   }, []);
 
   return (
-    <main className="page">
-      <h1>No Tracking — Autocapture Only</h1>
-      <p>
-        This page initialises Amplitude with default autocapture (page views, sessions, and
-        clicks) and fires zero custom <code>track()</code> calls anywhere on the page, exercising
-        the scanner&apos;s AUTOCAPTURE_ONLY finding.
-      </p>
-    </main>
+    <>
+      <SectionNav section="no-tracking" current="/no-tracking/autocapture-only" />
+      <main className="page">
+        <h1>No Tracking — Autocapture Only</h1>
+        <p>
+          This page initialises Amplitude with default autocapture (page views, sessions, and
+          clicks) and fires zero custom <code>track()</code> calls anywhere on the page, exercising
+          the scanner&apos;s AUTOCAPTURE_ONLY finding.
+        </p>
+      </main>
+    </>
   );
 }

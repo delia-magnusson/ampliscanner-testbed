@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import SectionNav from "../../_components/SectionNav";
 
 function makeCards(count: number) {
   return Array.from({ length: count }, (_, i) => i + 1);
@@ -28,20 +29,23 @@ export default function InfiniteScrollPage() {
   }, []);
 
   return (
-    <main className="page">
-      <h1>Infinite Scroll Mechanics Test</h1>
-      <p>
-        Starts with 30 placeholder cards and lazy-loads 20 more each time the sentinel near the
-        bottom enters the viewport.
-      </p>
-      <div className="card-grid">
-        {cards.map((n) => (
-          <div key={n} className="card">
-            Card {n}
-          </div>
-        ))}
-      </div>
-      <div ref={sentinelRef} className="scroll-sentinel" />
-    </main>
+    <>
+      <SectionNav section="mechanics" current="/mechanics/infinite-scroll" />
+      <main className="page">
+        <h1>Infinite Scroll Mechanics Test</h1>
+        <p>
+          Starts with 30 placeholder cards and lazy-loads 20 more each time the sentinel near the
+          bottom enters the viewport.
+        </p>
+        <div className="card-grid">
+          {cards.map((n) => (
+            <div key={n} className="card">
+              Card {n}
+            </div>
+          ))}
+        </div>
+        <div ref={sentinelRef} className="scroll-sentinel" />
+      </main>
+    </>
   );
 }

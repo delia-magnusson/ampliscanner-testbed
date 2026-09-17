@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"Page Views — Missing Some"}
       description={"A page in a flow where some page view events are never fired."}
+      section={"pageviews"}
+      current={"/pageviews/missing-some"}
     />
   );
 }

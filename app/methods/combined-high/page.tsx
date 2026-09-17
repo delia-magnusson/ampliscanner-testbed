@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"Methods — Combined (High)"}
       description={"A page combining duplicate calls and non-standard event splitting at high severity."}
+      section={"methods"}
+      current={"/methods/combined-high"}
     />
   );
 }

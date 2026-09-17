@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import SectionNav from "../../_components/SectionNav";
 
 const SECTIONS = [
   {
@@ -39,29 +40,32 @@ export default function SpaPage() {
   }
 
   return (
-    <main className="page">
-      <h1>SPA Mechanics Test</h1>
-      <p>
-        A small client-side routed mini app. Each button below swaps the visible content via React
-        state and pushes a new URL with <code>history.pushState</code>, with no real{" "}
-        <code>&lt;a href&gt;</code> anywhere and no full page reload.
-      </p>
-      <nav className="button-row">
-        {SECTIONS.map((section) => (
-          <button
-            key={section.id}
-            type="button"
-            onClick={() => goTo(section)}
-            aria-current={section.id === activeId}
-          >
-            {section.label}
-          </button>
-        ))}
-      </nav>
-      <section>
-        <h2>{active.label}</h2>
-        <p>{active.content}</p>
-      </section>
-    </main>
+    <>
+      <SectionNav section="mechanics" current="/mechanics/spa" />
+      <main className="page">
+        <h1>SPA Mechanics Test</h1>
+        <p>
+          A small client-side routed mini app. Each button below swaps the visible content via
+          React state and pushes a new URL with <code>history.pushState</code>, with no real{" "}
+          <code>&lt;a href&gt;</code> anywhere and no full page reload.
+        </p>
+        <nav className="button-row">
+          {SECTIONS.map((section) => (
+            <button
+              key={section.id}
+              type="button"
+              onClick={() => goTo(section)}
+              aria-current={section.id === activeId}
+            >
+              {section.label}
+            </button>
+          ))}
+        </nav>
+        <section>
+          <h2>{active.label}</h2>
+          <p>{active.content}</p>
+        </section>
+      </main>
+    </>
   );
 }

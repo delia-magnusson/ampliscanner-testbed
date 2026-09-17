@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"Mega Menu — Product B"}
       description={"A destination page reachable only via the mega menu's hover-injected submenu links."}
+      section={"mechanics"}
+      current={"/mechanics/mega-menu/product-b"}
     />
   );
 }

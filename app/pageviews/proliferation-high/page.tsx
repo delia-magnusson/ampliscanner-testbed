@@ -5,6 +5,8 @@ export default function Page() {
     <PlaceholderPage
       title={"Page Views — Proliferation (High)"}
       description={"A page contributing to a large proliferation of near-duplicate page view event names."}
+      section={"pageviews"}
+      current={"/pageviews/proliferation-high"}
     />
   );
 }

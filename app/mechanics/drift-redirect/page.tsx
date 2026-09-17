@@ -1,5 +1,7 @@
 "use client";
 
+import SectionNav from "../../_components/SectionNav";
+
 export default function DriftRedirectPage() {
   function handleClick() {
     const partner = window.open("https://example.com", "_blank");
@@ -14,16 +16,19 @@ export default function DriftRedirectPage() {
   }
 
   return (
-    <main className="page">
-      <h1>Drift Redirect Mechanics Test</h1>
-      <p>
-        Clicking the button below opens a partner site on a different origin, then automatically
-        redirects back to this page after a two-second delay, simulating an auth-subdomain
-        redirect-and-return.
-      </p>
-      <button type="button" onClick={handleClick}>
-        Continue to partner site
-      </button>
-    </main>
+    <>
+      <SectionNav section="mechanics" current="/mechanics/drift-redirect" />
+      <main className="page">
+        <h1>Drift Redirect Mechanics Test</h1>
+        <p>
+          Clicking the button below opens a partner site on a different origin, then automatically
+          redirects back to this page after a two-second delay, simulating an auth-subdomain
+          redirect-and-return.
+        </p>
+        <button type="button" onClick={handleClick}>
+          Continue to partner site
+        </button>
+      </main>
+    </>
   );
 }
