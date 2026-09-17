@@ -6,6 +6,8 @@ const ROUTES = [
   "/",
   "/no-tracking",
   "/no-tracking/page-2",
+  "/no-tracking/autocapture-only",
+  "/no-tracking/no-autocapture",
   "/pii",
   "/pii/greeting",
   "/pii/form",
