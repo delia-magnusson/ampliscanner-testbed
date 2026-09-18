@@ -21,6 +21,7 @@ const ROUTES = [
   "/naming/generic-1",
   "/naming/generic-2",
   "/naming/combined-high",
+  "/naming/unreadable",
   "/methods",
   "/methods/clean",
   "/methods/duplicate-low",

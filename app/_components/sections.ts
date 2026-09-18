@@ -41,6 +41,7 @@ export const SECTIONS: Record<SectionKey, { title: string; href: string; childre
       { href: "/naming/generic-1", label: "Generic (1)" },
       { href: "/naming/generic-2", label: "Generic (2)" },
       { href: "/naming/combined-high", label: "Combined (High)" },
+      { href: "/naming/unreadable", label: "Unreadable" },
     ],
   },
   methods: {
