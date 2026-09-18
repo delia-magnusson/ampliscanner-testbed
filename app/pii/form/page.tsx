@@ -8,7 +8,10 @@ const API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
 
 export default function FormPage() {
   const instanceRef = useRef<ReturnType<typeof createInstance> | null>(null);
-  const [email, setEmail] = useState("");
+  // Pre-filled (not just a placeholder) so an automated submit that never types into the field -
+  // e.g. a crawler's exhaustive sweep, which submits forms as-is - still sends this fake value
+  // rather than an empty string, exercising the PII-named-key signal instead of trivially clearing it.
+  const [email, setEmail] = useState("jane.doe@example.test");
 
   useEffect(() => {
     if (!API_KEY) return;
@@ -47,7 +50,6 @@ export default function FormPage() {
               name="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              placeholder="jane.doe@example.test"
             />
           </label>
           <button type="submit">Submit</button>
