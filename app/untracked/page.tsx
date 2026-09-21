@@ -5,7 +5,7 @@ export default function Page() {
   return (
     <SectionIndex
       title={SECTIONS.untracked.title}
-      description="A section that will eventually hold around twenty untracked sub-pages; for now it holds three as a starter set."
+      description="Three self-contained 11-page groups (an entry page plus 10 members each), used to test UNTRACKED_AREAS at roughly 10%, 30%, and 60% silent-page ratios. Each group's own entry page links only to its own 10 members, so a scan pointed at one entry page stays within that group."
       links={SECTIONS.untracked.children}
     />
   );

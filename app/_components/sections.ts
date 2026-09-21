@@ -70,9 +70,9 @@ export const SECTIONS: Record<SectionKey, { title: string; href: string; childre
     title: "Untracked",
     href: "/untracked",
     children: [
-      { href: "/untracked/page-1", label: "Page 1" },
-      { href: "/untracked/page-2", label: "Page 2" },
-      { href: "/untracked/page-3", label: "Page 3" },
+      { href: "/untracked/ratio-10", label: "Ratio 10" },
+      { href: "/untracked/ratio-30", label: "Ratio 30" },
+      { href: "/untracked/ratio-60", label: "Ratio 60" },
     ],
   },
   pageviews: {
