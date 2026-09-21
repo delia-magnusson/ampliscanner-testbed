@@ -63,6 +63,7 @@ export const SECTIONS: Record<SectionKey, { title: string; href: string; childre
       { href: "/legacy-sdk/low", label: "Low" },
       { href: "/legacy-sdk/medium", label: "Medium" },
       { href: "/legacy-sdk/high", label: "High" },
+      { href: "/legacy-sdk/mixed-floor", label: "Mixed Floor" },
     ],
   },
   untracked: {

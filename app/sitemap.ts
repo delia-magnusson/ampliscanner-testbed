@@ -33,6 +33,7 @@ const ROUTES = [
   "/legacy-sdk/low",
   "/legacy-sdk/medium",
   "/legacy-sdk/high",
+  "/legacy-sdk/mixed-floor",
   "/untracked",
   "/untracked/page-1",
   "/untracked/page-2",
