@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { createInstance } from "@amplitude/analytics-browser";
+import { MemoryStorage } from "@amplitude/analytics-core";
 import PageViewGroupNav from "../../../_components/PageViewGroupNav";
 
 const API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
@@ -12,8 +13,14 @@ export default function Page() {
 
     // Copy-paste bug: page-2 hardcodes this same path instead of using its own, so this value
     // ends up attached to 2 distinct pages.
+    // MemoryStorage + unique instanceName per page - see /pageviews/missing-some entry page for why.
     const instance = createInstance();
-    instance.init(API_KEY, { autocapture: false, defaultTracking: false });
+    instance.init(API_KEY, {
+      autocapture: false,
+      defaultTracking: false,
+      instanceName: window.location.pathname,
+      storageProvider: new MemoryStorage(),
+    });
     instance.track("Page Viewed", { url: "/pageviews/reused-value/page-1" });
   }, []);
 

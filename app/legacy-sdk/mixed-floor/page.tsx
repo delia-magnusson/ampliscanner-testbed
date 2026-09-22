@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { createInstance } from "@amplitude/analytics-browser";
+import { MemoryStorage } from "@amplitude/analytics-core";
 import SectionNav from "../../_components/SectionNav";
 
 const API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
@@ -27,7 +28,12 @@ export default function LegacySdkMixedFloorPage() {
     // band: at 5% legacy this is nowhere near the 30% threshold, so if this still comes back
     // MEDIUM (not LOW), that's the floor doing it, not the ratio.
     const instance = createInstance();
-    instance.init(API_KEY, { autocapture: false, defaultTracking: false });
+    instance.init(API_KEY, {
+      autocapture: false,
+      defaultTracking: false,
+      instanceName: window.location.pathname,
+      storageProvider: new MemoryStorage(),
+    });
     instance.track("workspace_created", { workspace_id: "ws_1" });
     instance.track("project_created", { project_id: "proj_204" });
     instance.track("task_assigned", { task_id: "task_88" });

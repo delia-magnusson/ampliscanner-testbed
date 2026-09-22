@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { createInstance } from "@amplitude/analytics-browser";
+import { MemoryStorage } from "@amplitude/analytics-core";
 import SectionNav from "../../_components/SectionNav";
 
 const API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
@@ -14,7 +15,12 @@ export default function MethodsCleanPage() {
     // usage at all on this page - every custom event goes through exactly one delivery path,
     // the SDK, matching the clean baseline for tracking-method hygiene.
     const instance = createInstance();
-    instance.init(API_KEY, { autocapture: false, defaultTracking: false });
+    instance.init(API_KEY, {
+      autocapture: false,
+      defaultTracking: false,
+      instanceName: window.location.pathname,
+      storageProvider: new MemoryStorage(),
+    });
 
     instance.track("workspace_created", { workspace_id: "ws_1" });
     instance.track("project_created", { project_id: "proj_204" });

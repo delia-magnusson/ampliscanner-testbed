@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { createInstance } from "@amplitude/analytics-browser";
+import { MemoryStorage } from "@amplitude/analytics-core";
 
 const API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
 
@@ -13,8 +14,14 @@ export default function PageViewsNoPageviewAnywhereEntryPage() {
     // Fires an unrelated custom event so this page isn't confused with UNTRACKED_AREAS - it's
     // "tracked", just never with anything matching the recognized page-view pattern, and never
     // with a name shaped like the naming-proliferation pattern (no "_viewed"/"_page" suffix).
+    // MemoryStorage + unique instanceName per page - see /pageviews/missing-some entry page for why.
     const instance = createInstance();
-    instance.init(API_KEY, { autocapture: false, defaultTracking: false });
+    instance.init(API_KEY, {
+      autocapture: false,
+      defaultTracking: false,
+      instanceName: window.location.pathname,
+      storageProvider: new MemoryStorage(),
+    });
     instance.track("hero_cta_clicked", { cta_label: "Get started" });
   }, []);
 

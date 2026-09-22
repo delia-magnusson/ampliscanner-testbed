@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { createInstance } from "@amplitude/analytics-browser";
+import { MemoryStorage } from "@amplitude/analytics-core";
 import SectionNav from "../../_components/SectionNav";
 
 const API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
@@ -14,7 +15,12 @@ export default function NamingCleanPage() {
     // this page's naming-hygiene signals are deterministic regardless of any
     // crawler click/interaction behaviour.
     const instance = createInstance();
-    instance.init(API_KEY, { autocapture: false, defaultTracking: false });
+    instance.init(API_KEY, {
+      autocapture: false,
+      defaultTracking: false,
+      instanceName: window.location.pathname,
+      storageProvider: new MemoryStorage(),
+    });
 
     instance.track("pricing_plan_selected", { plan_id: "pro_monthly", plan_price_usd: 49 });
     instance.track("onboarding_step_completed", { step_name: "connect_data_source", step_number: 2 });

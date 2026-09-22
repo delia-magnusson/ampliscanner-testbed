@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { createInstance } from "@amplitude/analytics-browser";
+import { MemoryStorage } from "@amplitude/analytics-core";
 
 const API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
 
@@ -12,8 +13,14 @@ export default function PageViewsProliferationHighEntryPage() {
 
     // Mints its own page-specific event name like every other page in this group - no page here
     // fires the standard page-view event at all, reproducing the holded.com pattern.
+    // MemoryStorage + unique instanceName per page - see /pageviews/missing-some entry page for why.
     const instance = createInstance();
-    instance.init(API_KEY, { autocapture: false, defaultTracking: false });
+    instance.init(API_KEY, {
+      autocapture: false,
+      defaultTracking: false,
+      instanceName: window.location.pathname,
+      storageProvider: new MemoryStorage(),
+    });
     instance.track("home_viewed", { url: window.location.pathname });
   }, []);
 

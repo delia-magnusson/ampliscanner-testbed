@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { createInstance } from "@amplitude/analytics-browser";
+import { MemoryStorage } from "@amplitude/analytics-core";
 import SectionNav from "../../_components/SectionNav";
 
 const API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
@@ -24,7 +25,12 @@ export default function LegacySdkMediumPage() {
 
     // Current SDK: 6 of 10 events.
     const instance = createInstance();
-    instance.init(API_KEY, { autocapture: false, defaultTracking: false });
+    instance.init(API_KEY, {
+      autocapture: false,
+      defaultTracking: false,
+      instanceName: window.location.pathname,
+      storageProvider: new MemoryStorage(),
+    });
     instance.track("plan_compared", { plans_compared: 2 });
     instance.track("billing_updated_view", { billing_section: "payment_method" });
     instance.track("seat_management_opened", { seat_count: 8 });

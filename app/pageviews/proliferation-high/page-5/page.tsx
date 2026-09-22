@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { createInstance } from "@amplitude/analytics-browser";
+import { MemoryStorage } from "@amplitude/analytics-core";
 import PageViewGroupNav from "../../../_components/PageViewGroupNav";
 
 const API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
@@ -10,8 +11,14 @@ export default function Page() {
   useEffect(() => {
     if (!API_KEY) return;
 
+    // MemoryStorage + unique instanceName per page - see /pageviews/missing-some entry page for why.
     const instance = createInstance();
-    instance.init(API_KEY, { autocapture: false, defaultTracking: false });
+    instance.init(API_KEY, {
+      autocapture: false,
+      defaultTracking: false,
+      instanceName: window.location.pathname,
+      storageProvider: new MemoryStorage(),
+    });
     instance.track("faq_viewed", { url: window.location.pathname });
   }, []);
 

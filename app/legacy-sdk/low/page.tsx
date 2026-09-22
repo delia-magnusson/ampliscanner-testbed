@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { createInstance } from "@amplitude/analytics-browser";
+import { MemoryStorage } from "@amplitude/analytics-core";
 import SectionNav from "../../_components/SectionNav";
 
 const API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
@@ -24,7 +25,12 @@ export default function LegacySdkLowPage() {
 
     // Current SDK: 8 of 10 events (isolated instance, autocapture off).
     const instance = createInstance();
-    instance.init(API_KEY, { autocapture: false, defaultTracking: false });
+    instance.init(API_KEY, {
+      autocapture: false,
+      defaultTracking: false,
+      instanceName: window.location.pathname,
+      storageProvider: new MemoryStorage(),
+    });
     instance.track("cart_reviewed", { item_count: 3 });
     instance.track("checkout_initiated", { cart_id: "cart_11" });
     instance.track("address_confirmed", { country: "US" });

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { createInstance } from "@amplitude/analytics-browser";
+import { MemoryStorage } from "@amplitude/analytics-core";
 
 const API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
 
@@ -14,7 +15,12 @@ export default function Ratio10EntryPage() {
     // extra silent page - keeps the group's intended silent-page ratio exact when a scan visits
     // all 11 pages (this entry plus its 10 members).
     const instance = createInstance();
-    instance.init(API_KEY, { autocapture: false, defaultTracking: false });
+    instance.init(API_KEY, {
+      autocapture: false,
+      defaultTracking: false,
+      instanceName: window.location.pathname,
+      storageProvider: new MemoryStorage(),
+    });
     instance.track("untracked_group_entry_viewed", { group: "ratio-10" });
   }, []);
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createInstance } from "@amplitude/analytics-browser";
+import { MemoryStorage } from "@amplitude/analytics-core";
 import SectionNav from "../../_components/SectionNav";
 
 const API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
@@ -15,10 +16,13 @@ export default function GreetingPage() {
     // Isolated instance, real autocapture, no custom track() calls anywhere
     // on this page: the leak below comes entirely from Amplitude's default
     // element-text capture, not from any code we wrote to send the name.
+    // MemoryStorage + unique instanceName per page - see /pageviews/missing-some entry page for why.
     const instance = createInstance();
     instance.init(API_KEY, {
       autocapture: true,
       defaultTracking: true,
+      instanceName: window.location.pathname,
+      storageProvider: new MemoryStorage(),
     });
   }, []);
 

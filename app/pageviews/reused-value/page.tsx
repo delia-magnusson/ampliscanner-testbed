@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { createInstance } from "@amplitude/analytics-browser";
+import { MemoryStorage } from "@amplitude/analytics-core";
 
 const API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
 
@@ -10,8 +11,16 @@ export default function PageViewsReusedValueEntryPage() {
   useEffect(() => {
     if (!API_KEY) return;
 
+    // MemoryStorage + unique instanceName per page keeps this instance's retry queue isolated
+    // from every other page's, so client-side <Link> navigation can't leak an undelivered event
+    // between pages - see /pageviews/missing-some entry page for the full explanation.
     const instance = createInstance();
-    instance.init(API_KEY, { autocapture: false, defaultTracking: false });
+    instance.init(API_KEY, {
+      autocapture: false,
+      defaultTracking: false,
+      instanceName: window.location.pathname,
+      storageProvider: new MemoryStorage(),
+    });
     instance.track("Page Viewed", { url: window.location.pathname });
   }, []);
 
