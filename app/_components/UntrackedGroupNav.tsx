@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { UntrackedIcon } from "./CatIcons";
+import { SECTIONS } from "./sections";
 
 // Deliberately does NOT link back to /untracked or to the other two groups - this is what keeps
 // each group a self-contained, crawlable island: a scan targeting one group's entry page should
@@ -21,9 +23,12 @@ export default function UntrackedGroupNav({
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <header className="section-nav">
+    <header
+      className="section-nav"
+      style={{ "--section-color": SECTIONS.untracked.color } as React.CSSProperties}
+    >
       <Link href={`/untracked/${group}`} className="section-nav-back">
-        ← Back to {GROUP_LABELS[group] ?? group}
+        <UntrackedIcon />← Back to {GROUP_LABELS[group] ?? group}
       </Link>
       <nav className="section-nav-siblings">
         {pages.map((n) =>

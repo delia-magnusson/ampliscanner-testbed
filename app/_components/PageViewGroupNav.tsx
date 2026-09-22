@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { PageviewsIcon } from "./CatIcons";
+import { SECTIONS } from "./sections";
 
 // Deliberately does NOT link back to /pageviews or to the other groups - same isolation pattern
 // as UntrackedGroupNav, so a scan targeting one group's entry page stays inside that group and
@@ -24,9 +26,12 @@ export default function PageViewGroupNav({
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <header className="section-nav">
+    <header
+      className="section-nav"
+      style={{ "--section-color": SECTIONS.pageviews.color } as React.CSSProperties}
+    >
       <Link href={`/pageviews/${group}`} className="section-nav-back">
-        ← Back to {GROUP_LABELS[group] ?? group}
+        <PageviewsIcon />← Back to {GROUP_LABELS[group] ?? group}
       </Link>
       <nav className="section-nav-siblings">
         {pages.map((n) =>

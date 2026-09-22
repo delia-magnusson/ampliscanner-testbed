@@ -10,10 +10,15 @@ export type SectionKey =
   | "pageviews"
   | "mechanics";
 
-export const SECTIONS: Record<SectionKey, { title: string; href: string; children: SectionLink[] }> = {
+export const SECTIONS: Record<
+  SectionKey,
+  { title: string; href: string; pun: string; color: string; children: SectionLink[] }
+> = {
   "no-tracking": {
     title: "No Tracking",
     href: "/no-tracking",
+    pun: "The cat who isn't there",
+    color: "#7C83FD",
     children: [
       { href: "/no-tracking/page-2", label: "Page 2" },
       { href: "/no-tracking/autocapture-only", label: "Autocapture Only" },
@@ -23,6 +28,8 @@ export const SECTIONS: Record<SectionKey, { title: string; href: string; childre
   pii: {
     title: "PII",
     href: "/pii",
+    pun: "Incognito kitty",
+    color: "#B15DFF",
     children: [
       { href: "/pii/greeting", label: "Greeting" },
       { href: "/pii/form", label: "Form" },
@@ -32,6 +39,8 @@ export const SECTIONS: Record<SectionKey, { title: string; href: string; childre
   naming: {
     title: "Naming",
     href: "/naming",
+    pun: "Cat-alogue of names",
+    color: "#06B6A8",
     children: [
       { href: "/naming/clean", label: "Clean" },
       { href: "/naming/casing-low", label: "Casing (Low)" },
@@ -47,6 +56,8 @@ export const SECTIONS: Record<SectionKey, { title: string; href: string; childre
   methods: {
     title: "Methods",
     href: "/methods",
+    pun: "Purr-suit of method",
+    color: "#3DBE64",
     children: [
       { href: "/methods/clean", label: "Clean" },
       { href: "/methods/duplicate-low", label: "Duplicate (Low)" },
@@ -58,6 +69,8 @@ export const SECTIONS: Record<SectionKey, { title: string; href: string; childre
   "legacy-sdk": {
     title: "Legacy SDK",
     href: "/legacy-sdk",
+    pun: "Old Tom's nap",
+    color: "#C97B3B",
     children: [
       { href: "/legacy-sdk/current", label: "Current" },
       { href: "/legacy-sdk/low", label: "Low" },
@@ -69,6 +82,8 @@ export const SECTIONS: Record<SectionKey, { title: string; href: string; childre
   untracked: {
     title: "Untracked",
     href: "/untracked",
+    pun: "The great cat-scape",
+    color: "#FF6B4A",
     children: [
       { href: "/untracked/ratio-10", label: "Ratio 10" },
       { href: "/untracked/ratio-30", label: "Ratio 30" },
@@ -78,6 +93,8 @@ export const SECTIONS: Record<SectionKey, { title: string; href: string; childre
   pageviews: {
     title: "Page Views",
     href: "/pageviews",
+    pun: "Window watcher",
+    color: "#2FA8E0",
     children: [
       { href: "/pageviews/clean", label: "Clean" },
       { href: "/pageviews/missing-some", label: "Missing Some" },
@@ -90,6 +107,8 @@ export const SECTIONS: Record<SectionKey, { title: string; href: string; childre
   mechanics: {
     title: "Mechanics",
     href: "/mechanics",
+    pun: "Paws & gears",
+    color: "#FF4FA3",
     children: [
       { href: "/mechanics/spa", label: "SPA" },
       { href: "/mechanics/cookie-banner", label: "Cookie Banner" },

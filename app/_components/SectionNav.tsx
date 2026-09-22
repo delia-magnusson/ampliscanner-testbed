@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { SECTIONS, type SectionKey } from "./sections";
+import { SectionIcon } from "./CatIcons";
 
 export default function SectionNav({ section, current }: { section: SectionKey; current?: string }) {
   const { title, href, children } = SECTIONS[section];
 
   return (
-    <header className="section-nav">
+    <header className="section-nav" style={{ "--section-color": SECTIONS[section].color } as React.CSSProperties}>
       <Link href={href} className="section-nav-back">
-        ← Back to {title}
+        <SectionIcon section={section} />← Back to {title}
       </Link>
       <nav className="section-nav-siblings">
         {children.map((link) =>
