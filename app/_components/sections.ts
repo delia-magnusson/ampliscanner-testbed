@@ -120,6 +120,7 @@ export const SECTIONS: Record<
       { href: "/mechanics/tabs-dropdowns-video", label: "Tabs, Dropdowns & Video" },
       { href: "/mechanics/login-wall", label: "Login Wall" },
       { href: "/mechanics/drift-redirect", label: "Drift Redirect" },
+      { href: "/mechanics/experiment-active", label: "Experiment Active" },
     ],
   },
 };
