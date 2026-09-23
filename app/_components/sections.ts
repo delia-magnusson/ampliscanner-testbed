@@ -47,6 +47,7 @@ export const SECTIONS: Record<
       { href: "/naming/casing-high", label: "Casing (High)" },
       { href: "/naming/concept-2", label: "Concept Duplication (2)" },
       { href: "/naming/concept-4", label: "Concept Duplication (4)" },
+      { href: "/naming/concept-domain-href", label: "Concept (Domain/Href Excluded)" },
       { href: "/naming/generic-1", label: "Generic (1)" },
       { href: "/naming/generic-2", label: "Generic (2)" },
       { href: "/naming/combined-high", label: "Combined (High)" },
