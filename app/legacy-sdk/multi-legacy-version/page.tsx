@@ -12,7 +12,7 @@ const LEGACY_SDK_URL_B = "https://cdn.amplitude.com/libs/amplitude-8.21.9-min.gz
 declare global {
   interface Window {
     amplitude?: {
-      getInstance: () => {
+      getInstance: (instanceName?: string) => {
         init: (apiKey: string) => void;
         logEvent: (eventType: string, eventProperties?: Record<string, unknown>) => void;
       };
@@ -41,13 +41,26 @@ export default function LegacySdkMultiVersionPage() {
     instance.track("team_member_invited", { role: "analyst" });
     instance.track("export_scheduled", { cadence: "weekly" });
 
-    // Two legacy amplitude-js builds loaded sequentially, not in parallel: amplitude-js is a
-    // single global (window.amplitude), so the second script to load would silently clobber the
-    // first before its instance could fire anything. Loading A, capturing its instance reference,
-    // and firing its events BEFORE injecting B guarantees both versions' events actually go out
-    // under their own version - each script still self-reports its own real, compiled-in version
-    // string in every event's "library" field (verified against the actual CDN builds: 8.19.0 and
-    // 8.21.9), so nothing about the version label is faked here, only the load order is managed.
+    // Two legacy amplitude-js builds loaded sequentially: amplitude-js is a single global
+    // (window.amplitude), so the second script to load would otherwise replace the first's module
+    // state before it could fire anything. Loading A, capturing its instance, and firing its
+    // events BEFORE injecting B avoids that specific race.
+    //
+    // That alone isn't enough, though - confirmed by debugging directly against the deployed
+    // page: even with correct sequencing, B's events were intermittently silently lost (no error
+    // anywhere; getInstance()/init()/logEvent() all completed normally every single time, but the
+    // network request never went out on some runs). Root cause, found by decompressing the actual
+    // CDN bundle: getInstance() with no argument always resolves to the SAME default-named
+    // instance, and amplitude-js derives its localStorage key for the unsent-event queue and
+    // device/session cookie purely from `"_" + apiKey + instanceNameSuffix`
+    // (`this._storageSuffix = "_" + apiKey + (instanceName === default ? "" : "_" + instanceName)`
+    // in the bundle). With no instance name, A and B - same apiKey - write to the exact same
+    // storage key, so B's init() can race A's own flush/clear of that key and lose events that
+    // were logged correctly but never got a chance to be persisted before being wiped.
+    // getInstance(instanceName) is real, supported API (confirmed in the bundle) that gives each
+    // version its own storage key, the same isolation guarantee instanceName gives the modern SDK
+    // elsewhere on this site - passing distinct names below is what actually fixes the race, not
+    // just the load ordering.
     let cancelledA = false;
     let cancelledB = false;
     const scriptA = document.createElement("script");
@@ -56,33 +69,24 @@ export default function LegacySdkMultiVersionPage() {
     scriptA.src = LEGACY_SDK_URL_A;
     scriptA.async = true;
     scriptA.onload = () => {
-      console.log("[debug] A onload fired", { cancelledA, hasAmplitude: !!window.amplitude });
       if (cancelledA || !window.amplitude) return;
-      const legacyA = window.amplitude.getInstance();
+      const legacyA = window.amplitude.getInstance("legacy_a_8_19_0");
       legacyA.init(API_KEY);
       legacyA.logEvent("legacy_report_generated", { report_type: "cohort" });
       legacyA.logEvent("legacy_report_shared", { share_method: "email" });
-      console.log("[debug] A init + logEvent calls made");
 
       // Only load B once A's instance has already fired, so A never gets clobbered mid-flight.
       scriptB.src = LEGACY_SDK_URL_B;
       scriptB.async = true;
       scriptB.onload = () => {
-        console.log("[debug] B onload fired", { cancelledB, hasAmplitude: !!window.amplitude });
         if (cancelledB || !window.amplitude) return;
-        const legacyB = window.amplitude.getInstance();
-        console.log("[debug] B getInstance() returned", legacyB);
+        const legacyB = window.amplitude.getInstance("legacy_b_8_21_9");
         legacyB.init(API_KEY);
-        console.log("[debug] B init() called");
         legacyB.logEvent("legacy_dashboard_pinned", { dashboard_id: "growth" });
         legacyB.logEvent("legacy_alert_configured", { alert_metric: "signup_rate" });
-        console.log("[debug] B logEvent calls made");
       };
-      scriptB.onerror = (e) => console.log("[debug] B script onerror", e);
       document.head.appendChild(scriptB);
-      console.log("[debug] B script tag appended", scriptB.src);
     };
-    scriptA.onerror = (e) => console.log("[debug] A script onerror", e);
     document.head.appendChild(scriptA);
 
     return () => {

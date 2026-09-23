@@ -11,7 +11,7 @@ const LEGACY_SDK_URL = "https://cdn.amplitude.com/libs/amplitude-8.21.9-min.gz.j
 declare global {
   interface Window {
     amplitude?: {
-      getInstance: () => {
+      getInstance: (instanceName?: string) => {
         init: (apiKey: string) => void;
         logEvent: (eventType: string, eventProperties?: Record<string, unknown>) => void;
       };
