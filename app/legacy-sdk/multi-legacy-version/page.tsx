@@ -56,24 +56,33 @@ export default function LegacySdkMultiVersionPage() {
     scriptA.src = LEGACY_SDK_URL_A;
     scriptA.async = true;
     scriptA.onload = () => {
+      console.log("[debug] A onload fired", { cancelledA, hasAmplitude: !!window.amplitude });
       if (cancelledA || !window.amplitude) return;
       const legacyA = window.amplitude.getInstance();
       legacyA.init(API_KEY);
       legacyA.logEvent("legacy_report_generated", { report_type: "cohort" });
       legacyA.logEvent("legacy_report_shared", { share_method: "email" });
+      console.log("[debug] A init + logEvent calls made");
 
       // Only load B once A's instance has already fired, so A never gets clobbered mid-flight.
       scriptB.src = LEGACY_SDK_URL_B;
       scriptB.async = true;
       scriptB.onload = () => {
+        console.log("[debug] B onload fired", { cancelledB, hasAmplitude: !!window.amplitude });
         if (cancelledB || !window.amplitude) return;
         const legacyB = window.amplitude.getInstance();
+        console.log("[debug] B getInstance() returned", legacyB);
         legacyB.init(API_KEY);
+        console.log("[debug] B init() called");
         legacyB.logEvent("legacy_dashboard_pinned", { dashboard_id: "growth" });
         legacyB.logEvent("legacy_alert_configured", { alert_metric: "signup_rate" });
+        console.log("[debug] B logEvent calls made");
       };
+      scriptB.onerror = (e) => console.log("[debug] B script onerror", e);
       document.head.appendChild(scriptB);
+      console.log("[debug] B script tag appended", scriptB.src);
     };
+    scriptA.onerror = (e) => console.log("[debug] A script onerror", e);
     document.head.appendChild(scriptA);
 
     return () => {
