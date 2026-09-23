@@ -78,6 +78,7 @@ export const SECTIONS: Record<
       { href: "/legacy-sdk/medium", label: "Medium" },
       { href: "/legacy-sdk/high", label: "High" },
       { href: "/legacy-sdk/mixed-floor", label: "Mixed Floor" },
+      { href: "/legacy-sdk/multi-legacy-version", label: "Multi Legacy Version" },
     ],
   },
   untracked: {
